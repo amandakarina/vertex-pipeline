@@ -14,24 +14,24 @@
 #
 steps:
   # Upload dataflow src file to bucket
-  # Replace the {your-bucket-name} from non-prod in the bucket name
+  # Replace the bkt-n-ml-storage-2rieiev3 from non-prod in the bucket name
   - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['cp', '-r', './src', 'gs://{your-bucket-name}']
+    args: ['cp', '-r', './src', 'gs://bkt-n-ml-storage-2rieiev3']
 
   - name: 'gcr.io/cloud-builders/gsutil'
-  # Replace the {your-bucket-name} from non-prod in the bucket name
-    args: ['cp', '-r', './data', 'gs://{your-bucket-name}']
+  # Replace the bkt-n-ml-storage-2rieiev3 from non-prod in the bucket name
+    args: ['cp', '-r', './data', 'gs://bkt-n-ml-storage-2rieiev3']
 
   # compile pipeline
-  # Replace the {your-artifact-project} for your artifact project ID
-  - name: 'us-central1-docker.pkg.dev/{your-artifact-project}/c-publish-artifacts/vertexpipeline:v2'
+  # Replace the prj-c-mlartifacts-at2q for your artifact project ID
+  - name: 'us-central1-docker.pkg.dev/prj-c-mlartifacts-at2q/c-publish-artifacts/vertexpipeline:v2'
     entrypoint: 'python'
     args: ['compile_pipeline.py']
     id: 'compile_job'
 
   # run pipeline
-  # Replace the {your-artifact-project} for your artifact project ID
-  - name: 'us-central1-docker.pkg.dev/{your-artifact-project}/c-publish-artifacts/vertexpipeline:v2'
+  # Replace the prj-c-mlartifacts-at2q for your artifact project ID
+  - name: 'us-central1-docker.pkg.dev/prj-c-mlartifacts-at2q/c-publish-artifacts/vertexpipeline:v2'
     entrypoint: 'python'
     args: ['runpipeline.py']
     id: 'run_job'
